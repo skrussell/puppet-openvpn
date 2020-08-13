@@ -314,13 +314,19 @@ define openvpn::server (
     group => $group_to_set,
   }
 
-  file { "${server_directory}/${name}":
-    ensure => directory,
-    mode   => '0750',
-    notify => $lnotify,
+  if (defined(File["${server_directory}/${name}"])) {
+	if ($lnotify !~ Undef) {
+	    File["${server_directory}/${name}"] ~> $lnotify
+	}
+  } else {
+    file { "${server_directory}/${name}":
+      ensure => directory,
+      mode   => '0750',
+      notify => $lnotify,
+    }
   }
   file {
-    [ "${server_directory}/${name}/scripts", ]:
+    "${server_directory}/${name}/scripts":
       ensure  => directory,
       mode    => '0750',
       recurse => true,
