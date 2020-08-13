@@ -1,0 +1,1 @@
+openvpn::server_directory: '/etc/openvpn/server'
