@@ -162,7 +162,7 @@ define openvpn::server (
   Boolean $manage_logfile_directory                                 = false,
   String[1] $logdirectory_user                                      = 'nobody',
   String[1] $logdirectory_group                                     = 'nobody',
-  String $port                                                      = '1194',
+  Variant[Stdlib::Port,String] $port                                = 1194,
   Optional[String] $portshare                                       = undef,
   Enum['tcp', 'tcp4', 'tcp6', 'udp', 'udp4', 'udp6'] $proto         = 'tcp',
   Enum['1', '2', '3', ''] $status_version                           = '',
